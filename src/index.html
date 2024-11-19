@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>Maquette Armes Explosives</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+        .button {
+            padding: 10px 20px;
+            background-color: #ff5733;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #ff3b00;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+
+    
+    <nav class="bg-gray-800 p-4 shadow-md">
+        <ul class="flex space-x-8 justify-center">
+            <li><a href="#" onclick="showSection('home')" class="text-xl hover:text-yellow-400 transition">Accueil</a></li>
+            <li><a href="#" onclick="showSection('contact')" class="text-xl hover:text-yellow-400 transition">Contacts</a></li>
+            <li><a href="#" onclick="showSection('about')" class="text-xl hover:text-yellow-400 transition">À propos</a></li>
+        </ul>
+
+        
+        <div class="mt-4 flex justify-center">
+            <input id="search" type="text" placeholder="Rechercher une arme..." class="p-2 bg-gray-700 text-white rounded-md w-1/2 focus:outline-none" oninput="filterWeapons()">
+        </div>
+    </nav>
+
+    
+    <div id="home" class="hidden p-8 fade-in">
+        <h1 class="text-3xl font-bold mb-6">Types d'Armes Explosives</h1>
+        <p class="mb-4">Découvrez les différents types d'armement explosif utilisés dans les situations militaires.</p>
+        
+        <div id="weapon-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+        </div>
+    </div>
+
+    <div id="about" class="hidden p-8 fade-in">
+        <h1 class="text-3xl font-bold mb-6">À propos des Armes Explosives</h1>
+        <p>Les armes explosives sont des dispositifs qui libèrent une quantité d'énergie sous forme de chaleur, de lumière et de force mécanique.</p>
+        <ul class="list-disc pl-6 space-y-4 mt-6">
+            <li><strong>Grenades :</strong> Petits explosifs portables souvent utilisés dans des combats rapprochés. Elles sont conçues pour être lancées à la main ou avec un dispositif.</li>
+            <li><strong>Bombes :</strong> Dispositifs explosifs de grande taille, largués depuis des avions ou largués par des engins au sol pour attaquer des cibles à distance.</li>
+            <li><strong>Missiles :</strong> Projectiles capables de se guider vers une cible spécifique grâce à un système de navigation intégré.</li>
+            <li><strong>Roquettes :</strong> Armes de lancement qui propulsent un explosif sur de longues distances, généralement utilisées pour détruire des véhicules ou des structures.</li>
+            <li><strong>Mine Terrestre :</strong> Dispositif explosif enterré sous terre, souvent utilisé dans des zones de guerre pour bloquer l'avancée de l'ennemi.</li>
+            <li><strong>EEI (Engins Explosifs Improvisés) :</strong> Dispositifs fabriqués de manière artisanale, utilisés par des groupes non étatiques pour des attaques de faible coût mais à fort impact.</li>
+        </ul>
+    </div>
+
+    <div id="contact" class="hidden p-8 fade-in">
+        <h1 class="text-3xl font-bold mb-6">Contacts</h1>
+        <p>Pour toute demande, contactez-nous en utilisant les informations ci-dessous :</p>
+        <ul class="space-y-4 mt-6">
+            <li><strong>Nom :</strong> RANDRIAMIHAJA </li>
+            <li><strong>Prénom :</strong> Mamitiana Herizo </li>
+            <li><strong>E-mail :</strong> mamitianarandriamihaja2806@gmail.com </li>
+            <li><strong>Numéro de téléphone :</strong> 034 04 736 88 </li>
+        </ul>
+    </div>
+
+    <script>
+        
+        const weapons = [
+            { name: "Grenades", description: "Petits explosifs portables, souvent utilisés dans des combats rapprochés." },
+            { name: "Bombes", description: "Dispositifs explosifs largués depuis des avions ou des véhicules pour des attaques à distance." },
+            { name: "Missiles", description: "Projectiles guidés utilisés pour attaquer des cibles spécifiques." },
+            { name: "Roquettes", description: "Armes propulsées à grande distance, souvent utilisées pour détruire des cibles terrestres." },
+            { name: "Mine Terrestre", description: "Dispositif explosif enterré, souvent utilisé dans des zones de guerre pour bloquer les ennemis." },
+            { name: "EEI (Engins Explosifs Improvisés)", description: "Dispositifs fabriqués maison utilisés souvent par des groupes non étatiques." }
+        ];
+
+        
+        function displayWeapons() {
+            const weaponList = document.getElementById("weapon-list");
+            weaponList.innerHTML = ''; 
+            weapons.forEach(weapon => {
+                const weaponCard = document.createElement("div");
+                weaponCard.classList.add("bg-gray-800", "p-6", "rounded-lg", "shadow-lg");
+                weaponCard.innerHTML = `
+                    <h2 class="text-xl font-semibold mb-2">${weapon.name}</h2>
+                    <p>${weapon.description}</p>
+                `;
+                weaponList.appendChild(weaponCard);
+            });
+        }
+
+        
+        function filterWeapons() {
+            const searchTerm = document.getElementById("search").value.toLowerCase();
+            const filteredWeapons = weapons.filter(weapon => weapon.name.toLowerCase().includes(searchTerm));
+            const weaponList = document.getElementById("weapon-list");
+            weaponList.innerHTML = ''; 
+            filteredWeapons.forEach(weapon => {
+                const weaponCard = document.createElement("div");
+                weaponCard.classList.add("bg-gray-800", "p-6", "rounded-lg", "shadow-lg");
+                weaponCard.innerHTML = `
+                    <h2 class="text-xl font-semibold mb-2">${weapon.name}</h2>
+                    <p>${weapon.description}</p>
+                `;
+                weaponList.appendChild(weaponCard);
+            });
+        }
+
+        
+        function showSection(section) {
+            
+            document.getElementById("home").classList.add("hidden");
+            document.getElementById("contact").classList.add("hidden");
+            document.getElementById("about").classList.add("hidden");
+
+            
+            document.getElementById(section).classList.remove("hidden");
+        }
+
+        
+        window.onload = () => {
+            showSection('home');
+            displayWeapons(); 
+        };
+    </script>
+
+</body>
+
+</html>
